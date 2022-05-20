@@ -24,3 +24,24 @@ autometa-length-filter \
 fi
 done
 ```
+### Step 2: Determine coverages from assembly read alignments
+```
+conda activate autometa
+export OPENBLAS_NUM_THREADS=1
+
+BAMdir=~/BAM/
+
+for bam in $(ls $BAMdir); do
+
+base=$(echo ${bam} | sed 's/.bam//') 
+
+#Outputs
+bed=${base}.coverages.bed.tsv
+coverages=${base}.coverages.tsv
+
+if [ ! -f $coverages ]
+then
+autometa-bedtools-genomecov --ibam ${BAMdir}${bam} --bed ${bed} --output ${coverages}
+fi  
+done
+```
