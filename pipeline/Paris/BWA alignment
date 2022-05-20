@@ -1,0 +1,34 @@
+!/bin/bash
+#$ -V
+#$ -N BWA_MEM_DDD
+#$ -S /bin/bash
+#$ -cwd
+#$ -o BWA_DDD.stout
+#$ -e BWA_DDD.sterr
+#$ -pe thread 4
+#$ -l 'h_vmem=10G'
+#$ -l 'mem_free=10G'
+
+IFS=$'\t'
+
+Fastqdir=~/Fastq/
+SAMdir=~/SAM/
+ASMdir=~/genome_asm/
+
+while read R1 R2 ASM; do
+  ASM=$(echo $ASM | sed 's/.merge.fa.*$/.merge.fa/')
+  R1PREFIX=$(echo $R1 | sed 's/_R1.fq.gz//')	
+	R2PREFIX=$(echo $R2 | sed 's/_R2.fq.gz//')	
+	ASMPREFIX=$(echo $ASM | sed 's/.merge.fa.*$//')
+  
+	if [[ "$R1PREFIX" == "$ASMPREFIX" && "$R2PREFIX" == "$ASMPREFIX" ]]; then
+	bwa index ${ASMdir}${ASM}
+	bwa mem ${ASMdir}${ASM} ${Fastqdir}${R1} ${Fastqdir}${R2} -t 4 \
+	| samtools view -S -b > ${SAMdir}${R1PREFIX}.bam #pipe .sam to .bam file
+	
+  else
+	echo "NO MATCH $R1PREFIX $R2PREFIX $ASMPREFIX"
+	
+  fi
+done < reads_asm_map.txt
+
