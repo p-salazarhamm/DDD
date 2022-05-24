@@ -1,0 +1,23 @@
+#!/bin/bash
+#$ -V
+#$ -N Prokka_DDD
+#$ -S /bin/bash
+#$ -cwd
+#$ -o Prokka.stout
+#$ -e Prokka_DDD.sterr
+#$ -pe thread 4
+#$ -l 'h_vmem=10G'
+#$ -l 'mem_free=10G'
+
+IFS=$'\t'
+
+conda activate prokka
+
+ASMdir=~/genome_asm/
+
+while read R1 R2 ASM LTP; do
+	#echo "$R1 -- $R2 -- $ASM -- $LTP"
+	
+	prokka --locustag ${LTP} --prefix ${LTP} --outdir ${LTP}_prokka --cpus 4 --kingdom Bacteria ${ASMdir}${ASM}
+
+done < reads_asm_map.txt
