@@ -3,7 +3,7 @@
 conda activate autometa
 export OPENBLAS_NUM_THREADS=1
 
-ASMDIR=~/genome_asm
+ASMDIR=$1
 
 for asm in $(ls $ASMDIR/*.fa); do
 
@@ -29,7 +29,7 @@ done
 conda activate autometa
 export OPENBLAS_NUM_THREADS=1
 
-BAMdir=~/BAM/
+BAMdir=$1
 
 for bam in $(ls $BAMdir); do
 
