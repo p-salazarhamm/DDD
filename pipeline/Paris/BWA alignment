@@ -11,9 +11,9 @@
 
 IFS=$'\t'
 
-Fastqdir=~/Fastq/
-SAMdir=~/SAM/
-ASMdir=~/genome_asm/
+Fastqdir=$1
+SAMdir=$2
+ASMdir=$3
 
 while read R1 R2 ASM LTP ID; do
   ASM=$(echo $ASM | sed 's/.merge.fa.*$/.merge.fa/')
