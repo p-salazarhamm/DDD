@@ -15,7 +15,7 @@ Fastqdir=~/Fastq/
 SAMdir=~/SAM/
 ASMdir=~/genome_asm/
 
-while read R1 R2 ASM; do
+while read R1 R2 ASM LTP ID; do
   ASM=$(echo $ASM | sed 's/.merge.fa.*$/.merge.fa/')
   R1PREFIX=$(echo $R1 | sed 's/_R1.fq.gz//')	
 	R2PREFIX=$(echo $R2 | sed 's/_R2.fq.gz//')	
