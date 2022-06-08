@@ -15,7 +15,7 @@ conda activate prokka
 
 ASMdir=~/genome_asm/
 
-while read R1 R2 ASM LTP; do
+while read R1 R2 ASM LTP ID; do
 	#echo "$R1 -- $R2 -- $ASM -- $LTP"
 	
 	prokka --locustag ${LTP} --prefix ${LTP} --outdir ${LTP}_prokka --cpus 4 --kingdom Bacteria ${ASMdir}${ASM}
