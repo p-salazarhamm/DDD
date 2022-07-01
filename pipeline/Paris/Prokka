@@ -13,7 +13,7 @@ IFS=$'\t'
 
 conda activate prokka
 
-ASMdir=~/genome_asm/
+ASMdir=$1
 
 while read R1 R2 ASM LTP ID; do
 	#echo "$R1 -- $R2 -- $ASM -- $LTP"
