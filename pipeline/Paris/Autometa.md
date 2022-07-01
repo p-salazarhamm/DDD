@@ -45,3 +45,19 @@ autometa-bedtools-genomecov --ibam ${BAMdir}${bam} --bed ${bed} --output ${cover
 fi  
 done
 ```
+### Step 3: Annotate and filter markers
+```
+ProkkaDir=$1
+kingdoms=(bacteria archaea)
+while read R1 R2 ASM LTP ID phylum class order family; do
+   for kingdom in ${kingdoms[@]}; do
+        orfs=${ProkkaDir}/${LTP}_prokka/${LTP}.faa
+        hmmscan=${LTP}.${kingdom}.hmmscan.tsv
+        markers=${LTP}.${kingdom}.markers.tsv
+
+if [ ! -f $hmmscan && ! -f $markers ]
+	then 	
+	
+autometa-markers --orfs $orfs --hmmscan $hmmscan --out $markers \
+        --kingdom $kingdom --parallel --cpus 4 --seed 42
+```	
