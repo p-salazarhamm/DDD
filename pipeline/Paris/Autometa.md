@@ -11,15 +11,15 @@ asmbase=$(basename $asm)
 filtasm_out=${asmbase}.lenfilt
 asmgc_out=${asmbase}.gc
 
-if [ ! -f $filtasm_out && ! -f $asmgc_out ]
+if [ ! -f ${filtasm_out} && ! -f ${asmgc_out} ]
 	then 
 	
 # --cutoff (Default: 3000)
 autometa-length-filter \
-    --assembly $asm \
+    --assembly ${asm} \
     --cutoff 1500 \
-    --output-fasta $filtasm_out \
-    --output-gc-content $asmgc_out
+    --output-fasta ${filtasm_out} \
+    --output-gc-content ${asmgc_out}
 
 fi
 done
@@ -59,7 +59,7 @@ while read R1 R2 ASM LTP ID phylum class order family; do
         hmmscan=${LTP}.${kingdom}.hmmscan.tsv
         markers=${LTP}.${kingdom}.markers.tsv
 
-if [ ! -f $hmmscan && ! -f $markers ]
+if [ ! -f ${hmmscan} && ! -f ${markers} ]
 	then 	
 	
 autometa-markers --orfs ${orfs} --hmmscan ${hmmscan} --out ${markers} \
