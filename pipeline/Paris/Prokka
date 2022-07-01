@@ -15,7 +15,7 @@ conda activate prokka
 
 ASMdir=$1
 
-while read R1 R2 ASM LTP ID; do
+while read R1 R2 ASM LTP ID phylum class order family; do
 	#echo "$R1 -- $R2 -- $ASM -- $LTP -- $ID"
 	
 	prokka --locustag ${LTP} --prefix ${LTP} --outdir ${LTP}_prokka --cpus 4 --kingdom Bacteria ${ASMdir}${ASM}
