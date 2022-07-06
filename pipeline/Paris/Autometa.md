@@ -45,7 +45,7 @@ autometa-bedtools-genomecov --ibam ${BAMdir}${bam} --bed ${bed} --output ${cover
 fi  
 done
 ```
-### Step 3: Annotate and filter markers
+### Step 3: Annotate markers
 ```
 conda activate autometa
 export OPENBLAS_NUM_THREADS=1
