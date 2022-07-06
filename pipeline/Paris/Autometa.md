@@ -51,10 +51,14 @@ conda activate autometa
 export OPENBLAS_NUM_THREADS=1
 
 ProkkaDir=$1
-kingdoms=(bacteria archaea)
+kingdoms=(archaea bacteria)
 
 while read R1 R2 ASM LTP ID phylum class order family; do
    for kingdom in ${kingdoms[@]}; do
+  	if [[ "$kingdom" == "archaea" ]];
+  	then db=~/archaea_odb10_combined.hmm
+        else db=~/bacteria_odb10_combined.hmm
+        fi
         orfs=${ProkkaDir}/${LTP}_prokka/${LTP}.faa
         hmmscan=${LTP}.${kingdom}.hmmscan.tsv
         markers=${LTP}.${kingdom}.markers.tsv
@@ -62,8 +66,7 @@ while read R1 R2 ASM LTP ID phylum class order family; do
 if [ ! -f ${hmmscan} && ! -f ${markers} ]
 	then 	
 	
-autometa-markers --orfs ${orfs} --hmmscan ${hmmscan} --out ${markers} \
-        --kingdom ${kingdom} --parallel --cpus 4 --seed 42
+autometa-markers --orfs ${orfs} --kingdom ${kingdom} --hmmdb ${db} --hmmscan ${hmmscan} --out ${markers} --parallel --cpus 4 --seed 42
 fi 
 done
 ```	
