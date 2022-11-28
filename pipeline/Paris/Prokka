@@ -3,8 +3,7 @@
 #$ -N Prokka_DDD
 #$ -S /bin/bash
 #$ -cwd
-#$ -o Prokka.stout
-#$ -e Prokka_DDD.sterr
+#$ -j y
 #$ -pe thread 4
 #$ -l 'h_vmem=10G'
 #$ -l 'mem_free=10G'
@@ -20,4 +19,4 @@ while read R1 R2 ASM LTP ID phylum class order family; do
 	
 	prokka --locustag ${LTP} --prefix ${LTP} --outdir ${LTP}_prokka --cpus 4 --kingdom Bacteria ${ASMdir}${ASM}
 
-done < reads_asm_map.txt
+done < mapping_file.txt
